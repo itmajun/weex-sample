@@ -29,9 +29,9 @@ const getEntryFileContent = (entryPath, vueFilePath) => {
     entryContents = entryContents.replace(/weex\.init/, match => `${contents}${match}`);
     contents = ''
   }
-  contents += `\nconst App = require('${relativeVuePath}');\n`;
-  contents += `App.el = '#root';\n`;
-  contents += `new Vue(App);\n`;
+  //contents += `\nconst App = require('${relativeVuePath}');\n`;
+  //contents += `App.el = '#root';\n`;
+  //contents += `new Vue(App);\n`;
   // console.log(entryContents)
   return entryContents + contents;
 }
@@ -46,11 +46,12 @@ const getEntryFile = (dir) => {
     const extname = path.extname(fullpath);
     if (stat.isFile() && extname === '.vue') {
       const name = path.join(dir, path.basename(file, extname));
-      if (extname === '.vue') {
-        const entryFile = path.join(vueWebTemp, dir, path.basename(file, extname) + '.js');
-        fs.outputFileSync(path.join(entryFile), getEntryFileContent(entryFile, fullpath));
-        webEntry[name] = path.join(entryFile) + '?entry=true';
-      }
+      //if (extname === '.vue') {
+        //const entryFile = path.join(vueWebTemp, dir, path.basename(file, extname) + '.js');
+        //fs.outputFileSync(path.join(entryFile), getEntryFileContent(entryFile, fullpath));
+        // webEntry[name] = path.join(entryFile) + '?entry=true';
+      //}
+      webEntry[name] =  helper.rootNode(config.entryFilePath)+ '?entry=true';
       weexEntry[name] = fullpath + '?entry=true';
     }
     else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
@@ -62,6 +63,7 @@ const getEntryFile = (dir) => {
 
 // Generate an entry file array before writing a webpack configuration
 getEntryFile();
+
 /**
  * Plugins for webpack configuration.
  */
@@ -141,6 +143,7 @@ const webConfig = {
    */
   plugins: plugins
 };
+
 // Config for compile jsbundle for native.
 const weexConfig = {
   entry: weexEntry,

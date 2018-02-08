@@ -1,6 +1,8 @@
 import Vue from 'vue';
 
 import weex from 'weex-vue-render';
+import router from './router'
+import App from './App'
 
 // import render-core.
 // import weex from 'weex-vue-render/dist/index.core';
@@ -13,5 +15,7 @@ import weex from 'weex-vue-render';
 // install the plugins.
 // weex.install(slider);
 // weex.install(stream);
-
 weex.init(Vue);
+
+new Vue(Vue.util.extend({ el: '#root', router}, App))
+router.push('/')
