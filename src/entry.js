@@ -3,6 +3,8 @@ import Vue from 'vue';
 import weex from 'weex-vue-render';
 import router from './router'
 import App from './App'
+import store from './store'
+import { sync } from 'vuex-router-sync'
 
 // import render-core.
 // import weex from 'weex-vue-render/dist/index.core';
@@ -17,5 +19,7 @@ import App from './App'
 // weex.install(stream);
 weex.init(Vue);
 
-new Vue(Vue.util.extend({ el: '#root', router}, App))
+sync(store, router)
+
+new Vue(Vue.util.extend({ el: '#root', router, store}, App))
 router.push('/')

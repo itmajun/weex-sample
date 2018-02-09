@@ -1,16 +1,13 @@
 <template>
-    <div class="wrapper">
-        <image :src="logo" class="logo"></image>
-        <text class="greeting">The environment is ready!</text>
-        <text class="message">Now, let's use Vue.js to build your Weex app.</text>
-    </div>
+    <transition name="router-fade" mode="out-in">
+        <router-view style="flex:1"></router-view>
+    </transition>
 </template>
 
 <script>
     export default {
         data () {
             return {
-                logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
             }
         }
     }
