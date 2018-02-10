@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import weex from 'weex-vue-render';
 import router from './router'
-import App from './App'
+import App from './index'
 import store from './store'
 import { sync } from 'vuex-router-sync'
 

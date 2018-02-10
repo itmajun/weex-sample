@@ -54,7 +54,7 @@ const getEntryFile = (dir) => {
       webEntry[name] =  helper.rootNode(config.entryFilePath)+ '?entry=true';
       weexEntry[name] = fullpath + '?entry=true';
     }
-    else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
+    else if (stat.isDirectory() && file === 'pages') {
       const subdir = path.join(dir, file);
       getEntryFile(subdir);
     }
