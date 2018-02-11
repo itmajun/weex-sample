@@ -1,38 +1,48 @@
-## Commands
+# Weex 相关
 
-### npm start
+1. 如何动态插入标签?
 
-Starts the development server for you to preview your weex page on browser.
-You can also scan the QR code using weex playground to preview weex page on native.
+有一个需求，请求接口获取信息，
+资源类型有1.文本 2.图片
+如果配接一个data属性比如这样
 
-### npm run dev
+```
+data(){
+  return {
+    content: '<text>Sample</text><image>...</image>'
+  }
+}
 
-Open the code compilation task in watch mode.
+```
+不过这样无法渲染出接口。通过weex-ui 我们找到了另一种解决方案
 
-### npm run ios
+```
+data(){
+   return {
+    configList: [
+        {type: 'text', content: 'Sample'},
+        {type: 'image', content: 'https://..'}
+    ]
+   }
+},
+created() {
+  fetch...
+  //组织data
+},
+components: {
+    textComponent,
+    imageComponent
+}
+//通过prop 传参数
+<text-component :textValue="">
 
-(Mac only, requires Xcode)
-Starts the development server and loads your app in an iOS simulator.
+//textComponent
+<template>
+    <text>{{textValue}}</text>
+</template>
 
-### npm run android
+//imageCompoent 同上。
 
-(Requires Android build tools)
-Starts the development server and loads your app on a connected Android device or emulator.
-
-### npm run pack:ios
-
-(Mac only, requires Xcode)
-Packaging ios project into ipa package.
-
-### npm run pack:android
-
-(Requires Android build tools)
-Packaging android project into apk package.
-
-### npm run pack:web
-
-Packaging html5 project into `web/build` folder.
-
-### npm run test
-
-Starts the test runner.
+```
+这样就可以动态的渲染出组件了。
+ 
